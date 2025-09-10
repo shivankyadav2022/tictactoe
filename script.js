@@ -65,7 +65,7 @@ function updateArray(){
     else{
         if(Globalplayer2==='Computer'){
             let input=botInput();
-            while(gameArray[input]==='X'|| gameArray[input==='0']){
+            while(gameArray[input]==='X'|| gameArray[input]==='0'){
                 input=botInput();
             }
             gameArray[input]='0';
