@@ -15,13 +15,15 @@ function chooseOpponent (){
 // update player names 
 
 function updatePlayerNames(opponentType){
+    let player1;
+    let player2;
     if(opponentType==='A'){
-        const player1=prompt("Enter player 1 name");
-        const player2= prompt("Enter player 2 name");
+        player1=prompt("Enter player 1 name");
+        player2= prompt("Enter player 2 name");
     }
     else{
-        const player1=prompt("Enter player 1 name");
-        const player2='Computer';
+        player1=prompt("Enter player 1 name");
+        player2='Computer';
     }
     return {player1,player2};
 }
@@ -35,7 +37,8 @@ function userInput(){
 
 // take bot input 
 function botInput(){
-    const botChoice = Math.floor(Math.random*8);
+    const botChoice = Math.floor(Math.random()*9);
+    console.log(botChoice);
     return botChoice;
 }
 
@@ -53,14 +56,14 @@ function toggleTurn (){
 function updateArray(){
     if(turn ===0){
      let input =userInput();
-     while(gameArray[input]==='X'|| gameArray[input==='0']){
+     while(gameArray[input]==='X'|| gameArray[input]==='0'){
         console.log("This place is already taken");
         input=userInput();
      }
      gameArray[input]='X'
     }
     else{
-        if(player2==='Computer'){
+        if(Globalplayer2==='Computer'){
             let input=botInput();
             while(gameArray[input]==='X'|| gameArray[input==='0']){
                 input=botInput();
@@ -76,6 +79,7 @@ function updateArray(){
             gameArray[input]='0'
         }
     }
+    displayMatrix();
 }
 
 //check win condition 
@@ -124,24 +128,25 @@ function dspWinLooseTie(){
     const arrayFull = checkArrayFull();
     if(arrayFull){
         console.log("Its a tie");
-        return;
+        return 0;
     }
     const winOrLoose = checkWinCondition();
     if(winOrLoose === 'X'){
         console.log("Player 1 wins");
+        return 1;
     }
     if(winOrLoose ==='0'){
         console.log("Player 2 wins");
+        return 2;
     }
 }
 
-//reset game 
-function resetGame (){
+
+// reset round
+function resetRound (){
     gameArray.fill('1');
     turn = 0;
-    ({player1:Globalplayer1, player2:Globalplayer2}=updatePlayerNames(chooseOpponent()));   
 }
-
 // make a game counter // update game counter 
 
 const roundCounter =(()=>{
@@ -159,7 +164,48 @@ const roundCounter =(()=>{
 //auto reset game for next round 
 function resetForNextRound(){
     if(checkArrayFull()){
-        resetGame();
+        resetRound();
         roundCounter.updateCounter();
+    }
+}
+
+//play a round 
+
+function playRound(){
+  while(!checkArrayFull()){
+    if(turn===0){
+    updateArray();
+    toggleTurn();
+  } 
+  else{
+    updateArray();
+    toggleTurn();
+  } 
+  let win =dspWinLooseTie();
+  if(win===0||win===1||win===2){
+    resetRound();
+    roundCounter.updateCounter();
+    return;
+  }
+}
+  resetForNextRound();
+}
+
+playRound();
+
+function displayMatrix(){
+    console.log('The current position of board is:');
+    let k=0;
+    for(i=0;i<3;i++){
+        let row='';
+        for(j=0;j<3;j++){
+            if(gameArray[i+k]==='1')
+                row+='_ ';
+            else
+                row+=gameArray[i+k]+' ';
+            k++;
+            console.log(i+k);
+        } 
+        console.log(row);
     }
 }
