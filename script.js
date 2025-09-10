@@ -1,4 +1,4 @@
-// universal game array 
+/*// universal game array 
 let gameArray = new Array(9).fill('1');
 let turn = 0;
 
@@ -38,7 +38,6 @@ function userInput(){
 // take bot input 
 function botInput(){
     const botChoice = Math.floor(Math.random()*9);
-    console.log(botChoice);
     return botChoice;
 }
 

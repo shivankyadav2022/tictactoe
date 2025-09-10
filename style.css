@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Super Trend';
+    src: url('fonts/SuperTrend.woff2') format('woff2'),
+        url('fonts/SuperTrend.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+body{
+    background-color: rgb(212, 212, 212);
+}
+.master-heading{
+    font-family: 'Super Trend';
+    font-size:80px;
+    text-align: center;
+}
