@@ -204,8 +204,8 @@ function displayMatrix(){
             else
                 row+=gameArray[i+k]+' ';
             k++;
-            console.log(i+k);
         } 
+        k-=1;
         console.log(row);
     }
 }
