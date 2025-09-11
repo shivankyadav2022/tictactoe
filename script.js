@@ -210,7 +210,6 @@ function displayMatrix(){
 }
 */
 
-const { createElement } = require("react");
 
 // make elements to display the logic on web page 
 
@@ -222,14 +221,26 @@ function displayGameHeader(text){
 let text="Whats player 1 name?"
 displayGameHeader(text);
 
-// display name question and get name
-function getPlayerNamer{
-    const middleMiddle=document.querySelector(".middle-middle");
-    const rectangleBox=document.createElement("div");
-    rectangleBox.classList.add('retangle-box-inside');
-    
+//display name question and get name
+function getPlayerNamer (playerNo){
+    const nameLabel=document.querySelector(".player-label");
+    const inputForm = document.querySelector(".name-input-form");
+    inputForm.style.display='flex';
+    nameLabel.innerText=`Enter Player ${playerNo} Name:`
+    return getSubmittedName();
+       
 }
+getPlayerNamer(2);
 
+function getSubmittedName(){
+    const playerNameInput = document.querySelector(".player-name-input");
+    let playerName;
+    playerNameInput.addEventListener('submit',(event)=>{
+        event.preventDefault();
+        playerName= playerNameInput.value;
+    })
+    return playerName;
+}
 // choose whether to play with other player or computer 
 
 //display character pics for players and or computer 
@@ -241,4 +252,4 @@ function getPlayerNamer{
 // display current tic toc matrix 
 
 // display win loose tie message 
-function displayPlayerChoic
+//function displayPlayerChoic
