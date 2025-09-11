@@ -208,3 +208,37 @@ function displayMatrix(){
         console.log(row);
     }
 }
+*/
+
+const { createElement } = require("react");
+
+// make elements to display the logic on web page 
+
+//function to display contents of top header
+function displayGameHeader(text){
+    const upperSpace = document.querySelector(".upper-space");
+    upperSpace.textContent=text;
+}
+let text="Whats player 1 name?"
+displayGameHeader(text);
+
+// display name question and get name
+function getPlayerNamer{
+    const middleMiddle=document.querySelector(".middle-middle");
+    const rectangleBox=document.createElement("div");
+    rectangleBox.classList.add('retangle-box-inside');
+    
+}
+
+// choose whether to play with other player or computer 
+
+//display character pics for players and or computer 
+
+//highlight the current turn player 
+
+// button to reset the game 
+
+// display current tic toc matrix 
+
+// display win loose tie message 
+function displayPlayerChoic
