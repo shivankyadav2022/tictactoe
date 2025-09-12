@@ -222,13 +222,19 @@ let text="Whats player 1 name?"
 displayGameHeader(text);
 
 //display name question and get name
-function showNamePanel (playerNo){
+function showNamePanel (NoOfPlayers){
     const nameLabel=document.querySelector(".player-label");
     const inputForm = document.querySelector(".name-input-form");
     const opponentPanel = document.querySelector(".opponent-type-panel");
+    displayGameHeader('Please Enter Name:');
     opponentPanel.style.display='none';
     inputForm.style.display='flex';
-    nameLabel.innerText=`Enter Player ${playerNo} Name:`
+    if(NoOfPlayers===1){
+        nameLabel.innerText='Enter Player 1 Name:'   
+    }
+    else if(NoOfPlayers===2){
+        nameLabel.innerText='Enter Player 1 Name:'
+    }
        
 }
 //showNamePanel(2);
@@ -271,6 +277,40 @@ chooseOpponent();
 
 //display character pics for players and or computer 
 
+function displayPlayersSidePanel(side,nameToDisplay,playerType){
+    const leftSide = document.querySelector('.left-middle');
+    const rightSide= document.querySelector('.right-middle');
+    const name = document.createElement('div');
+    const image= document.createElement('img');
+    name.classList.add('player-name-display-side-panel');
+    image.classList.add('player-image-display-side-panel');
+    if(side==='left'){
+        name.innerText = nameToDisplay;
+        image.src="images/player1.png";
+        image.alt="Player 1 image";
+        leftSide.appendChild(image);
+        leftSide.appendChild(name);
+        
+    }
+    if (side==='right'){
+        if(playerType==='player2'){
+            name.innerText = nameToDisplay;
+            image.src="images/player2.png";
+            image.alt="Player 2 image";
+
+        }
+        else if(playerType==='computer'){
+            name.innerText = 'Computer';
+            image.src="images/playerComputer.png";
+            image.alt="Computer image";
+        }
+        rightSide.appendChild(image);
+        rightSide.appendChild(name);
+        
+    }
+}
+displayPlayersSidePanel("right","Kabir Patel","player2");
+displayPlayersSidePanel("left","Shivank","computer");
 //highlight the current turn player 
 
 // button to reset the game 

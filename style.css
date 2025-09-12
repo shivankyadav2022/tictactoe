@@ -81,3 +81,18 @@ body{
     font-weight:900;
     height: 100px;
 }
+
+.right-middle, .left-middle{
+    dispay:flex;
+    flex-direction: column;
+}
+
+.player-image-display-side-panel{
+    width:200px;
+    margin:20px;
+}
+
+.player-name-display-side-panel{
+    font-size: 40px;
+    font-weight: 900;
+}
