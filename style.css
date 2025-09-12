@@ -31,6 +31,8 @@ body{
 }
 .upper-space{
     grid-area: 1/1/2/4;
+    font-size: 40px;
+    font-weight: 600;
 
 }
 
@@ -62,4 +64,20 @@ body{
 .name-form-submit{
     width:30%;
     border-radius: 10px;
+}
+
+.opponent-type-panel{
+    display:none;
+    flex-direction:column;
+    gap:20px;
+
+}
+
+.choose-opponent{
+    box-shadow: 5px 5px 10px;
+    border-radius: 10px;
+    margin:15px;
+    font-size: 30px;
+    font-weight:900;
+    height: 100px;
 }

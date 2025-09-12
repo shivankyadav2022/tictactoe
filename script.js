@@ -222,26 +222,52 @@ let text="Whats player 1 name?"
 displayGameHeader(text);
 
 //display name question and get name
-function getPlayerNamer (playerNo){
+function showNamePanel (playerNo){
     const nameLabel=document.querySelector(".player-label");
     const inputForm = document.querySelector(".name-input-form");
+    const opponentPanel = document.querySelector(".opponent-type-panel");
+    opponentPanel.style.display='none';
     inputForm.style.display='flex';
     nameLabel.innerText=`Enter Player ${playerNo} Name:`
-    return getSubmittedName();
        
 }
-getPlayerNamer(2);
+//showNamePanel(2);
 
+function showOpponentTypePanel (){
+
+}
 function getSubmittedName(){
-    const playerNameInput = document.querySelector(".player-name-input");
-    let playerName;
-    playerNameInput.addEventListener('submit',(event)=>{
+    const inputForm = document.querySelector(".name-input-form");
+    
+    inputForm.addEventListener('submit',(event)=>{
         event.preventDefault();
         playerName= playerNameInput.value;
     })
     return playerName;
 }
 // choose whether to play with other player or computer 
+
+function chooseOpponent() {
+    const opponentPanel = document.querySelector(".opponent-type-panel");
+    const opponentType = document.querySelectorAll(".choose-opponent");
+    opponentPanel.style.display='flex';
+    displayGameHeader("Who would you like to play against ?");
+
+    opponentType.forEach(button=>{
+        button.addEventListener('click',(event)=>{
+            const buttonValue = event.target.dataset.value;
+            if(buttonValue==='C'){
+                showNamePanel(1);
+            }
+            else{
+                showNamePanel(2);
+            }
+        })
+    })
+
+}
+
+chooseOpponent();
 
 //display character pics for players and or computer 
 
