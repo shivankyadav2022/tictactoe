@@ -226,15 +226,46 @@ function showNamePanel (NoOfPlayers){
     const nameLabel=document.querySelector(".player-label");
     const inputForm = document.querySelector(".name-input-form");
     const opponentPanel = document.querySelector(".opponent-type-panel");
+    let playerNameInput = document.querySelector(".player-name-input");
     displayGameHeader('Please Enter Name:');
     opponentPanel.style.display='none';
     inputForm.style.display='flex';
     if(NoOfPlayers===1){
-        nameLabel.innerText='Enter Player 1 Name:'   
+        nameLabel.innerText='Enter Player 1 Name:'  
+        inputForm.addEventListener('submit',(event)=>{
+            event.preventDefault();
+            const playerName = playerNameInput.value;
+            globalPlayer1 = playerName;
+            globalPlayer2 = 'Computer';
+            displayPlayersSidePanel("left",playerName,"Player1");
+            displayPlayersSidePanel("right","Computer","Computer");
+
+        }) 
     }
     else if(NoOfPlayers===2){
-        nameLabel.innerText='Enter Player 1 Name:'
-    }
+        nameLabel.innerText='Enter Player 1 Name:';
+        function handleSubmit(event){
+            event.preventDefault();
+            const playerName1 = playerNameInput.value;
+            globalPlayer1 = playerName1;
+            displayPlayersSidePanel("left",playerName1,"Player1");
+            nameLabel.innerText ='Enter Player 2 Name:';
+            playerNameInput.value='';
+            inputForm.removeEventListener('submit',handleSubmit);
+            inputForm.addEventListener('submit',handleSubmitR);
+        }
+        inputForm.addEventListener('submit',handleSubmit);
+        function handleSubmitR(event){
+            event.preventDefault();
+            const playerName2 = playerNameInput.value;
+            globalPlayer2 = playerName2;
+            displayPlayersSidePanel("right",playerName2,"Player2");
+            playerNameInput.value='';
+            inputForm.removeEventListener('submit',handleSubmitR);
+        }
+
+
+      }
        
 }
 //showNamePanel(2);
@@ -285,6 +316,7 @@ function displayPlayersSidePanel(side,nameToDisplay,playerType){
     name.classList.add('player-name-display-side-panel');
     image.classList.add('player-image-display-side-panel');
     if(side==='left'){
+        leftSide.innerHTML='';
         name.innerText = nameToDisplay;
         image.src="images/player1.png";
         image.alt="Player 1 image";
@@ -293,13 +325,14 @@ function displayPlayersSidePanel(side,nameToDisplay,playerType){
         
     }
     if (side==='right'){
-        if(playerType==='player2'){
+        rightSide.innerHTML='';
+        if(playerType==='Player2'){
             name.innerText = nameToDisplay;
             image.src="images/player2.png";
             image.alt="Player 2 image";
 
         }
-        else if(playerType==='computer'){
+        else if(playerType==='Computer'){
             name.innerText = 'Computer';
             image.src="images/playerComputer.png";
             image.alt="Computer image";
@@ -309,8 +342,6 @@ function displayPlayersSidePanel(side,nameToDisplay,playerType){
         
     }
 }
-displayPlayersSidePanel("right","Kabir Patel","player2");
-displayPlayersSidePanel("left","Shivank","computer");
 //highlight the current turn player 
 
 // button to reset the game 

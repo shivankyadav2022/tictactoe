@@ -82,10 +82,6 @@ body{
     height: 100px;
 }
 
-.right-middle, .left-middle{
-    dispay:flex;
-    flex-direction: column;
-}
 
 .player-image-display-side-panel{
     width:200px;
