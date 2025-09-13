@@ -81,13 +81,14 @@ async function updateArray(){
         }
         else{
                  input= await userInput();
-            while(gameArray[input]==='X'|| gameArray[input==='0']){
+            while(gameArray[input]==='X'|| gameArray[input]==='0'){
                 console.log("This place is already taken");
                 input= await userInput();
             }
             gameArray[input]='0'
         }
     }
+    console.log(gameArray);
     displayMatrix();
 }
 
@@ -135,10 +136,7 @@ function checkArrayFull (){
 
 function dspWinLooseTie(){
     const arrayFull = checkArrayFull();
-    if(arrayFull){
-        console.log("Its a tie");
-        return 0;
-    }
+   
     const winOrLoose = checkWinCondition();
     if(winOrLoose === 'X'){
         console.log("Player 1 wins");
@@ -147,6 +145,10 @@ function dspWinLooseTie(){
     if(winOrLoose ==='0'){
         console.log("Player 2 wins");
         return 2;
+    }
+     if(arrayFull){
+        console.log("Its a tie");
+        return 0;
     }
 }
 
@@ -211,13 +213,13 @@ async function playRound(){
 
 
 function displayMatrix(){
-    const gameSquare = document.querySelectorAll('.game-Cell');
+    const gameSquare = document.querySelectorAll('.game-cell');
     gameSquare.forEach((cell,index)=>{
         if (gameArray[index]==='1'){
-            cell.innerText='';
+            cell.textContent='';
         }
         else{
-            cell.innerText=gameArray[index];
+            cell.textContent=gameArray[index];
         }
     })
     }
@@ -271,10 +273,11 @@ function showNamePanel (NoOfPlayers){
             globalPlayer2 = playerName2;
             displayPlayersSidePanel("right",playerName2,"Player2");
             playerNameInput.value='';
+            playRound();
             inputForm.removeEventListener('submit',handleSubmitR);
         }
 
-        playRound();
+       
       }
        
 }
