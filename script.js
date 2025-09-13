@@ -67,7 +67,7 @@ async function updateArray(){
     if(turn ===0){
         input = await userInput();
      while(gameArray[input]==='X'|| gameArray[input]==='0'){
-        console.log("This place is already taken");
+        displayGameHeader("Already chosen! Try another spot.");
         input= await userInput();
      }
      gameArray[input]='X'
@@ -83,7 +83,7 @@ async function updateArray(){
         else{
                  input= await userInput();
             while(gameArray[input]==='X'|| gameArray[input]==='0'){
-                console.log("This place is already taken");
+                displayGameHeader("Already chosen! Try another spot.");
                 input= await userInput();
             }
             gameArray[input]='0'
@@ -140,15 +140,15 @@ function dspWinLooseTie(){
    
     const winOrLoose = checkWinCondition();
     if(winOrLoose === 'X'){
-        console.log("Player 1 wins");
+         displayGameHeader('Player 1 wins! Reset to play again.');
         return 1;
     }
     if(winOrLoose ==='0'){
-        console.log("Player 2 wins");
+        displayGameHeader('Player 2 wins! Reset to play again.');
         return 2;
     }
      if(arrayFull){
-        console.log("Its a tie");
+        displayGameHeader(`It’s a tie! Reset to play again.`);
         return 0;
     }
 }
