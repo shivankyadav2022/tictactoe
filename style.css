@@ -92,3 +92,22 @@ body{
     font-size: 40px;
     font-weight: 900;
 }
+
+.game-board-container{
+    display:none;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap:0px;
+    width:100%;
+    height:100%;
+ 
+   
+}
+.game-cell{
+     display:none;
+     border:5px solid black;
+     font-size: 100px;
+     font-weight:900;
+     
+     
+}

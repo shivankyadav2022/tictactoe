@@ -1,20 +1,20 @@
-/*// universal game array 
+// universal game array 
 let gameArray = new Array(9).fill('1');
 let turn = 0;
 
 //choose opponent option 
-function chooseOpponent (){
+/*function chooseOpponent (){
     let opponentType = prompt("Whom do you want to play with type A for another user or C for computer");
     while(opponentType!=='A'&& opponentType!== 'a' && opponentType!=='c' && opponentType!== 'C' ){
         opponentType=prompt("Enter either C for computer or A for another player");
     }
     opponentType=opponentType.toUpperCase();
     return opponentType;
-}
+} */
 
 // update player names 
 
-function updatePlayerNames(opponentType){
+/*function updatePlayerNames(opponentType){
     let player1;
     let player2;
     if(opponentType==='A'){
@@ -26,13 +26,22 @@ function updatePlayerNames(opponentType){
         player2='Computer';
     }
     return {player1,player2};
-}
+}*/
 // store the player 1 and player 2 in global variables 
-let {player1:Globalplayer1, player2:Globalplayer2}=updatePlayerNames(chooseOpponent());
+let globalPlayer1;
+let globalPlayer2;
 // taker user input 
 function userInput(){
-    const userChoice = prompt("Enter your position choice");
-    return userChoice;
+    displayGameHeader('Select your position of choice')
+    let userChoice;
+    const gameSquare = document.querySelectorAll('.game-cell');
+    return new Promise ((resolve)=>{
+        gameSquare.forEach((square,index)=>{
+            square.addEventListener('click',()=>{
+                resolve(index);
+            },{once:true})
+        })
+    })
 }
 
 // take bot input 
@@ -52,28 +61,29 @@ function toggleTurn (){
     }
 }
 //update game array 
-function updateArray(){
+async function updateArray(){
+    let input;
     if(turn ===0){
-     let input =userInput();
+        input = await userInput();
      while(gameArray[input]==='X'|| gameArray[input]==='0'){
         console.log("This place is already taken");
-        input=userInput();
+        input= await userInput();
      }
      gameArray[input]='X'
     }
     else{
-        if(Globalplayer2==='Computer'){
-            let input=botInput();
+        if(globalPlayer2==='Computer'){
+                input=botInput();
             while(gameArray[input]==='X'|| gameArray[input]==='0'){
                 input=botInput();
             }
             gameArray[input]='0';
         }
         else{
-            let input=userInput();
+                 input= await userInput();
             while(gameArray[input]==='X'|| gameArray[input==='0']){
                 console.log("This place is already taken");
-                input=userInput();
+                input= await userInput();
             }
             gameArray[input]='0'
         }
@@ -170,14 +180,22 @@ function resetForNextRound(){
 
 //play a round 
 
-function playRound(){
+async function playRound(){
+    const gameBoard = document.querySelector('.game-board-container');
+    const gameCell = document.querySelectorAll('.game-cell');
+    const nameForm = document.querySelector('.name-input-form');
+    nameForm.style.display='none';
+    gameBoard.style.display='grid';
+    gameCell.forEach((cell)=>{
+        cell.style.display='block';
+    })
   while(!checkArrayFull()){
     if(turn===0){
-    updateArray();
+    await updateArray();
     toggleTurn();
   } 
   else{
-    updateArray();
+    await updateArray();
     toggleTurn();
   } 
   let win =dspWinLooseTie();
@@ -190,26 +208,19 @@ function playRound(){
   resetForNextRound();
 }
 
-playRound();
+
 
 function displayMatrix(){
-    console.log('The current position of board is:');
-    let k=0;
-    for(i=0;i<3;i++){
-        let row='';
-        for(j=0;j<3;j++){
-            if(gameArray[i+k]==='1')
-                row+='_ ';
-            else
-                row+=gameArray[i+k]+' ';
-            k++;
-        } 
-        k-=1;
-        console.log(row);
+    const gameSquare = document.querySelectorAll('.game-Cell');
+    gameSquare.forEach((cell,index)=>{
+        if (gameArray[index]==='1'){
+            cell.innerText='';
+        }
+        else{
+            cell.innerText=gameArray[index];
+        }
+    })
     }
-}
-*/
-
 
 // make elements to display the logic on web page 
 
@@ -218,8 +229,6 @@ function displayGameHeader(text){
     const upperSpace = document.querySelector(".upper-space");
     upperSpace.textContent=text;
 }
-let text="Whats player 1 name?"
-displayGameHeader(text);
 
 //display name question and get name
 function showNamePanel (NoOfPlayers){
@@ -239,6 +248,7 @@ function showNamePanel (NoOfPlayers){
             globalPlayer2 = 'Computer';
             displayPlayersSidePanel("left",playerName,"Player1");
             displayPlayersSidePanel("right","Computer","Computer");
+            playRound();
 
         }) 
     }
@@ -264,24 +274,11 @@ function showNamePanel (NoOfPlayers){
             inputForm.removeEventListener('submit',handleSubmitR);
         }
 
-
+        playRound();
       }
        
 }
-//showNamePanel(2);
 
-function showOpponentTypePanel (){
-
-}
-function getSubmittedName(){
-    const inputForm = document.querySelector(".name-input-form");
-    
-    inputForm.addEventListener('submit',(event)=>{
-        event.preventDefault();
-        playerName= playerNameInput.value;
-    })
-    return playerName;
-}
 // choose whether to play with other player or computer 
 
 function chooseOpponent() {
@@ -295,9 +292,11 @@ function chooseOpponent() {
             const buttonValue = event.target.dataset.value;
             if(buttonValue==='C'){
                 showNamePanel(1);
+                return 'C';
             }
             else{
                 showNamePanel(2);
+                return 'A';
             }
         })
     })
