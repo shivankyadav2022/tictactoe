@@ -63,6 +63,7 @@ function toggleTurn (){
 //update game array 
 async function updateArray(){
     let input;
+    highlightCurrentTurn();
     if(turn ===0){
         input = await userInput();
      while(gameArray[input]==='X'|| gameArray[input]==='0'){
@@ -88,8 +89,8 @@ async function updateArray(){
             gameArray[input]='0'
         }
     }
-    console.log(gameArray);
     displayMatrix();
+    
 }
 
 //check win condition 
@@ -315,19 +316,26 @@ function displayPlayersSidePanel(side,nameToDisplay,playerType){
     const rightSide= document.querySelector('.right-middle');
     const name = document.createElement('div');
     const image= document.createElement('img');
+    const turnMessage=document.createElement('div');
     name.classList.add('player-name-display-side-panel');
     image.classList.add('player-image-display-side-panel');
+    turnMessage.classList.add('turn-message');
     if(side==='left'){
         leftSide.innerHTML='';
         name.innerText = nameToDisplay;
         image.src="images/player1.png";
         image.alt="Player 1 image";
+        turnMessage.classList.add('left-side-turn-message');
+        name.classList.add('left-name');
         leftSide.appendChild(image);
         leftSide.appendChild(name);
+        leftSide.appendChild(turnMessage);
         
     }
     if (side==='right'){
         rightSide.innerHTML='';
+        turnMessage.classList.add('right-side-turn-message');
+        name.classList.add('right-name');
         if(playerType==='Player2'){
             name.innerText = nameToDisplay;
             image.src="images/player2.png";
@@ -341,14 +349,39 @@ function displayPlayersSidePanel(side,nameToDisplay,playerType){
         }
         rightSide.appendChild(image);
         rightSide.appendChild(name);
+        rightSide.appendChild(turnMessage);
         
     }
 }
 //highlight the current turn player 
 
+function highlightCurrentTurn(){
+    const playerNameDisplayLeft = document.querySelector('.left-name');
+    const playerNameDisplayRight = document.querySelector('.right-name');
+    const turnMessageLeft = document.querySelector('.left-side-turn-message');
+    const turnMessageRight = document.querySelector('.right-side-turn-message');
+    const playerOne = playerNameDisplayLeft.innerText;
+    const playerTwo = playerNameDisplayRight.innerText;
+
+    if(turn===0){
+        turnMessageRight.innerText='';
+        turnMessageLeft.innerText=`${playerOne}'s Turn`;
+        playerNameDisplayRight.style.backgroundColor='transparent';
+        playerNameDisplayLeft.style.backgroundColor='red';
+    }
+    else if(turn===1){
+        turnMessageLeft.innerText='';
+        turnMessageRight.innerText=`${playerTwo}'s Turn`;
+        playerNameDisplayLeft.style.backgroundColor='transparent';
+        playerNameDisplayRight.style.backgroundColor='red';
+    }
+   
+
+}
+
+
 // button to reset the game 
 
-// display current tic toc matrix 
 
 // display win loose tie message 
 //function displayPlayerChoic
