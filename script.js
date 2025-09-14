@@ -141,14 +141,17 @@ function dspWinLooseTie(){
     const winOrLoose = checkWinCondition();
     if(winOrLoose === 'X'){
          displayGameHeader('Player 1 wins! Reset to play again.');
+         resetTurnIndicators();
         return 1;
     }
     if(winOrLoose ==='0'){
         displayGameHeader('Player 2 wins! Reset to play again.');
+        resetTurnIndicators();
         return 2;
     }
      if(arrayFull){
         displayGameHeader(`It’s a tie! Reset to play again.`);
+        resetTurnIndicators();
         return 0;
     }
 }
@@ -174,12 +177,12 @@ const roundCounter =(()=>{
 })();
 
 //auto reset game for next round 
-function resetForNextRound(){
+/*function resetForNextRound(){
     if(checkArrayFull()){
         resetRound();
         roundCounter.updateCounter();
     }
-}
+}*/
 
 //play a round 
 
@@ -203,12 +206,12 @@ async function playRound(){
   } 
   let win =dspWinLooseTie();
   if(win===0||win===1||win===2){
-    resetRound();
-    roundCounter.updateCounter();
+    //resetRound();
+    //roundCounter.updateCounter();
     return;
   }
 }
-  resetForNextRound();
+  //resetForNextRound();
 }
 
 
@@ -379,9 +382,29 @@ function highlightCurrentTurn(){
 
 }
 
+function resetTurnIndicators () {
+    const playerNameDisplayLeft = document.querySelector('.left-name');
+    const playerNameDisplayRight = document.querySelector('.right-name');
+    const turnMessageLeft = document.querySelector('.left-side-turn-message');
+    const turnMessageRight = document.querySelector('.right-side-turn-message');
+    turnMessageRight.innerText='';
+    turnMessageLeft.innerText='';
+    playerNameDisplayRight.style.backgroundColor='transparent';
+    playerNameDisplayLeft.style.backgroundColor='transparent';
+}
+
 
 // button to reset the game 
+function resetGame(){
+    const resetButton = document.querySelector('.reset-button');
+    resetButton.addEventListener('click',()=>{
+        resetRound();
+        displayMatrix();
+        playRound();
+    })
+}
 
+resetGame();
 
 // display win loose tie message 
 //function displayPlayerChoic
