@@ -398,6 +398,11 @@ function resetTurnIndicators () {
 function resetGame(){
     const resetButton = document.querySelector('.reset-button');
     resetButton.addEventListener('click',()=>{
+        const opponentPanel = document.querySelector('.opponent-type-panel');
+        const nameForm = document.querySelector('.name-input-form');
+        if(opponentPanel.style.display==='flex'||nameForm.style.display==='flex'){
+            return;
+        }
         resetRound();
         displayMatrix();
         playRound();
