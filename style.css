@@ -8,6 +8,7 @@
 }
 body{
     background-color: rgb(212, 212, 212);
+   
 }
 .master-heading{
     font-family: 'Super Trend';
@@ -25,10 +26,7 @@ body{
     grid-template-rows:0.5fr 3fr 0.5fr;
     text-align: center;
 }
-.master-container>*
-{
-    border:2px solid red;
-}
+
 .upper-space{
     grid-area: 1/1/2/4;
     font-size: 40px;
@@ -43,7 +41,6 @@ body{
 .square-box-inside{
     width:400px;
     height:400px;
-    background-color:white;
     display:flex;
     flex-direction:column;
     justify-content: center;
@@ -53,8 +50,7 @@ body{
     display:none;
     flex-direction: column;
     align-items: center;
-    Gap:20px;
-    border:2px solid red;
+    gap:20px;
     font-size: 30px;
 }
 
@@ -63,7 +59,7 @@ body{
 }
 .name-form-submit{
     width:30%;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .opponent-type-panel{
@@ -82,6 +78,10 @@ body{
     height: 100px;
 }
 
+.choose-opponent:hover {
+  transform: translateY(-2px);
+  
+}
 
 .player-image-display-side-panel{
     width:200px;
@@ -100,6 +100,7 @@ body{
     gap:0px;
     width:100%;
     height:100%;
+    aspect-ratio: 1/1;
  
    
 }
@@ -115,4 +116,24 @@ body{
 .turn-message{
     font-size: 25px;
     font-weight:900;
+}
+
+.reset-button{
+    display:none;
+    width:25%;
+    height:30px;
+    margin:10px;
+    font-weight: bold;
+    color:grey;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px;
+}
+
+.reset-button:hover{
+    transform:translateY(-2px);
+}
+
+.board-wrapper{
+    position:relative;
+    width:min(90vmin,400px);
 }

@@ -190,8 +190,10 @@ async function playRound(){
     const gameBoard = document.querySelector('.game-board-container');
     const gameCell = document.querySelectorAll('.game-cell');
     const nameForm = document.querySelector('.name-input-form');
+    const resetButton = document.querySelector('.reset-button');
     nameForm.style.display='none';
     gameBoard.style.display='grid';
+    resetButton.style.display='inline-block';
     gameCell.forEach((cell)=>{
         cell.style.display='block';
     })
@@ -398,11 +400,6 @@ function resetTurnIndicators () {
 function resetGame(){
     const resetButton = document.querySelector('.reset-button');
     resetButton.addEventListener('click',()=>{
-        const opponentPanel = document.querySelector('.opponent-type-panel');
-        const nameForm = document.querySelector('.name-input-form');
-        if(opponentPanel.style.display==='flex'||nameForm.style.display==='flex'){
-            return;
-        }
         resetRound();
         displayMatrix();
         playRound();
