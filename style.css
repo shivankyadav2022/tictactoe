@@ -136,5 +136,14 @@ body{
 
 .board-wrapper{
     position:relative;
-    width:min(80vmin,400px);
+    width:min(90vmin,400px);
+}
+
+.win-line{
+    display: none;
+    position:absolute;
+    width:100%;
+    background-color:red;
+    height:1%;
+  
 }

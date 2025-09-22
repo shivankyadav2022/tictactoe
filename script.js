@@ -97,25 +97,33 @@ async function updateArray(){
 function checkWinCondition (){
      switch (true) {
     // Rows
-    case (gameArray[0] && gameArray[0] === gameArray[1] && gameArray[0] === gameArray[2]):
+    case (gameArray[0] && gameArray[0]!=='1'&& gameArray[0] === gameArray[1] && gameArray[0] === gameArray[2]):
+        displayWinLine(8);
       return gameArray[0];
-    case (gameArray[3] && gameArray[3] === gameArray[4] && gameArray[3] === gameArray[5]):
+    case (gameArray[3] && gameArray[3]!=='1'&& gameArray[3] === gameArray[4] && gameArray[3] === gameArray[5]):
+        displayWinLine(4);
       return gameArray[3];
-    case (gameArray[6] && gameArray[6] === gameArray[7] && gameArray[6] === gameArray[8]):
+    case (gameArray[6] && gameArray[6]!=='1'&& gameArray[6] === gameArray[7] && gameArray[6] === gameArray[8]):
+        displayWinLine(5);
       return gameArray[6];
 
     // Columns
-    case (gameArray[0] && gameArray[0] === gameArray[3] && gameArray[0] === gameArray[6]):
+    case (gameArray[0] && gameArray[0]!=='1'&& gameArray[0] === gameArray[3] && gameArray[0] === gameArray[6]):
+        displayWinLine(7);
       return gameArray[0];
-    case (gameArray[1] && gameArray[1] === gameArray[4] && gameArray[1] === gameArray[7]):
+    case (gameArray[1] && gameArray[1]!=='1'&& gameArray[1] === gameArray[4] && gameArray[1] === gameArray[7]):
+        displayWinLine(2);
       return gameArray[1];
-    case (gameArray[2] && gameArray[2] === gameArray[5] && gameArray[2] === gameArray[8]):
+    case (gameArray[2] && gameArray[2]!=='1'&& gameArray[2] === gameArray[5] && gameArray[2] === gameArray[8]):
+        displayWinLine(6);
       return gameArray[2];
 
     // Diagonals
-    case (gameArray[0] && gameArray[0] === gameArray[4] && gameArray[0] === gameArray[8]):
+    case (gameArray[0] && gameArray[0]!=='1'&& gameArray[0] === gameArray[4] && gameArray[0] === gameArray[8]):
+        displayWinLine(1);
       return gameArray[0];
-    case (gameArray[2] && gameArray[2] === gameArray[4] && gameArray[2] === gameArray[6]):
+    case (gameArray[2] && gameArray[2]!=='1'&& gameArray[2] === gameArray[4] && gameArray[2] === gameArray[6]):
+        displayWinLine(3);
       return gameArray[2];
 
     // Default
@@ -403,6 +411,7 @@ function resetGame(){
         resetRound();
         displayMatrix();
         playRound();
+        resetWinLine();
     })
 }
 
@@ -410,3 +419,61 @@ resetGame();
 
 // display win loose tie message 
 //function displayPlayerChoic
+
+// draw win line 
+function displayWinLine(linePosition) {
+    const winLine = document.querySelector('.win-line');
+    winLine.style.display = 'block';
+    winLine.style.transform = '';  
+    winLine.style.left = '0';      
+    winLine.style.top = '0'; 
+
+    switch (linePosition) {
+        case 1:
+            winLine.style.top = '190px';
+            winLine.style.transform = 'rotate(45deg) scale(1.36)';
+            break;
+
+        case 2:
+            winLine.style.top = '190px';
+            winLine.style.transform = 'rotate(45deg)';
+            break;
+
+        case 3:
+            winLine.style.top = '190px';
+            winLine.style.transform = 'rotate(135deg) scale(1.36)';
+            break;
+
+        case 4:
+            winLine.style.top = '190px';
+            break;
+
+        case 5:
+            winLine.style.top = '330px';
+            break;
+
+        case 6:
+            winLine.style.top = '190px';
+            winLine.style.left = '130px';
+            winLine.style.transform = 'rotate(90deg)';
+            break;
+
+        case 7:
+            winLine.style.top = '190px';
+            winLine.style.left = '-130px';
+            winLine.style.transform = 'rotate(90deg)';
+            break;
+
+        case 8:
+            winLine.style.top = '50px';
+            break;
+
+        default:
+            console.warn('Invalid linePosition:', linePosition);
+    }
+}
+
+function resetWinLine(){
+    const winLine = document.querySelector('.win-line');
+    winLine.style.display = 'none';
+}
