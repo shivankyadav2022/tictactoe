@@ -436,7 +436,7 @@ function displayWinLine(linePosition) {
 
         case 2:
             winLine.style.top = '190px';
-            winLine.style.transform = 'rotate(45deg)';
+            winLine.style.transform = 'rotate(90deg)';
             break;
 
         case 3:
